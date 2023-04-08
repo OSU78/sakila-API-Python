@@ -67,4 +67,4 @@ def get_films():
 
 
 if __name__ == '__main__':
-    app.run(debug=True,port=53000)
+    app.run(debug=True)
