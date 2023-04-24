@@ -4,7 +4,7 @@ Bienvenue dans ce projet Liste de films! 🎉 Ce projet vise à afficher une lis
 
 ## 🌐 Testez l'application
 
-Pour tester l'application, veuillez visiter [sakila-api.com](sakila-olive.vercel.app) et explorez les différentes fonctionnalités:
+Pour tester l'application, veuillez visiter [sakila-olive.vercel.app](sakila-olive.vercel.app) et explorez les différentes fonctionnalités:
 
 - Triez les films par titre ou par année de sortie en cliquant sur les en-têtes de colonne.
 - Changez le nombre de films affichés par page en utilisant le champ de saisie en bas de la page.
