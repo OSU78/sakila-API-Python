@@ -85,6 +85,15 @@
 
     bottom: 1px;
   }
+.pagination-design{
+width: -webkit-fill-available;
+    gap: 0px;
+    background: white;
+    margin: 0px;
+    padding: 8px;
+    border-top: 1px solid #dadada;
+    box-shadow: 1px 2px 33px #4d34342e;
+}
   h1 {
     background-image: linear-gradient(
       to bottom,
