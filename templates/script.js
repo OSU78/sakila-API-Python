@@ -6,7 +6,7 @@
                 });
      e.classList.add("currentPage");
      //alert(currentPage);
-     getFilms();
+     getFilms(currentPage);
  }
 
  // Initialiser les valeurs par défaut
@@ -29,7 +29,7 @@
      });
 
  // Fonction pour récupérer les films triés et paginés à partir de l'API
- function getFilms() {
+ function getFilms(cur=0) {
      var xhr = new XMLHttpRequest();
      xhr.onreadystatechange = function () {
          if (xhr.readyState === XMLHttpRequest.DONE) {
@@ -92,6 +92,9 @@
                      var pageLink = document.createElement("a");
                      pageLink.href = "#";
                      pageLink.innerHTML = i;
+                   if(i==cur){
+                     pageLink.classList.add("currentPage");
+                   }
                      pageLink.setAttribute("data-page", i);
                      pageLink.classList.add("page-link");
                      pageLink.setAttribute("onclick", "swipPage(this)");
