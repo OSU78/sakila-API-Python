@@ -285,7 +285,11 @@ width: -webkit-fill-available;
     margin-bottom: 10rem;
 }
 
-
+.currentPage{
+ 
+    color:#f44336;
+    background: linear-gradient(183deg, rgb(248 203 188) 0%, rgb(255 255 255) 80%);
+}
 
 
 /* MEDIA QUERY*/
