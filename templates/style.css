@@ -261,3 +261,8 @@
     text-decoration: none;
     text-decoration-line: none !important;
   }
+
+.table td {
+    width: 152px !important;
+    max-width: 152px !important;
+}
