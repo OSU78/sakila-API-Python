@@ -250,3 +250,9 @@
     transition: 0.23s;
     color: #ff5722;
   }
+
+
+  p:hover{
+    text-decoration: none;
+    text-decoration-line: none !important;
+  }
