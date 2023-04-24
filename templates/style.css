@@ -35,9 +35,19 @@
     background-color: #ff5722;
     transition: 0.3s;
   }
+
+  .selected{
+    background: #ff5722;
+    transition: 0.23s;
+  }
+  .selected a{
+    color: white !important;
+  }
   .selected .triangle {
     transform: rotate(180deg);
+    background-color: white;
   }
+  
 
   .sort p {
     margin: 0px;
