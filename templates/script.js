@@ -166,6 +166,14 @@
          } else {
              // Ajoutez la classe "selected" à l'élément cliqué
              this.classList.add("selected");
+             //parcourir les liens de tri et supprimer la classe "selected" des autres liens
+                sortLinks.forEach(function (link) {
+                    if (link !== sortLink) {
+                        link.classList.remove("selected");
+                    }
+                });
+                
+             
          }
 
          if (sortDir == "asc") {
