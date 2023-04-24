@@ -147,7 +147,7 @@
 
  // Fonction pour changer le tri des films
  function sortFilms(sortB, sortDi) {
-     currentPage = 1;
+     currentPage = currentPage;
      sortBy = sortB;
      sortDir = sortDi;
      getFilms();
