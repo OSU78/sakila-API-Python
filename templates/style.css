@@ -280,7 +280,10 @@ width: -webkit-fill-available;
     max-width: 152px !important;
 }
 
-
+.table {
+  
+    margin-bottom: 10rem;
+}
 
 
 
