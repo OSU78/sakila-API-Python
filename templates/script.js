@@ -52,7 +52,7 @@
 
                  // Ajouter les liens de pagination
                  pagination.innerHTML = "";
-                 var maxPages = 5;
+                 var maxPages = 3;
                  var startPage = Math.max(
                      1,
                      currentPage - Math.floor(maxPages / 2)
@@ -61,7 +61,7 @@
                      data.total_pages,
                      startPage + maxPages - 1
                  );
-                 endPage = endPage-3
+                 
                  if (endPage - startPage < maxPages - 1) {
                      startPage = Math.max(1, endPage - maxPages + 1);
                  }
