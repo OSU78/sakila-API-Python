@@ -1,6 +1,10 @@
  // Ajouter des événements de clic pour les liens de pagination
  function swipPage(e) {
      currentPage = parseInt(e.getAttribute("data-page"));
+  document.querySelectorAll(".currentPage").forEach(function (element) {
+                    element.classList.remove("currentPage")
+                });
+     e.classList.add("currentPage");
      //alert(currentPage);
      getFilms();
  }
