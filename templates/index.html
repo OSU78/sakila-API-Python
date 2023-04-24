@@ -158,13 +158,22 @@
         position: relative;
       }
 
+      .flex {
+        display:flex;
+        gap: 10px
+      }
+      
+      .columns{
+        flex-direction:column
+      }
       /* Ajout d'un emoji devant les éléments li imbriqués */
-      ul li ul li:before {
-        content: "🔸";
-        position: absolute;
-        left: 0;
-        transform: translateX(-100%);
-        color: #f1c40f;
+    ul{
+    display: flex;
+    flex-direction: row;
+    gap: 22px;
+      }
+      ul li ul li{
+      padding: 0px
       }
     </style>
     <div class="container">
@@ -207,7 +216,7 @@
     </div>
     <div class="popup-bg" id="popup-bg">
       <div class="popup" id="popup">
-        <h2>🎬 Bienvenue sur Sakila Project 🎬</h2>
+        <h2>Bienvenue sur Sakila Project 🎬</h2>
         <p>
           Explorez une liste de films avec leur année de sortie dans un format
           de tableau triable et paginé. 🌐 Triez les films par titre ou par
@@ -216,6 +225,7 @@
         </p>
         <h3>🛠️ Technologies utilisées :</h3>
         <ul>
+          <div class="flex columns">
           <li>
             <h4>Backend :</h4>
             <ul>
@@ -232,6 +242,7 @@
               <li>🥾 Bootstrap</li>
             </ul>
           </li>
+          </div>
         </ul>
         <button class="btn btn-primary" id="visit-btn">Visiter 🚀</button>
       </div>
