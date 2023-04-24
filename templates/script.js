@@ -17,6 +17,7 @@
  document
      .getElementById("paginationNombre")
      .addEventListener("change", function () {
+        current_page = this.value
          console.log(this.value);
          perPage = this.value;
          this.setAttribute("disabled", true);
