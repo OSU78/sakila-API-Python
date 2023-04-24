@@ -39,8 +39,9 @@
   .selected{
     background: #ff5722;
     transition: 0.23s;
+    border-radius: 5px;
   }
-  .selected a{
+  .selected p{
     color: white !important;
   }
   .selected .triangle {
