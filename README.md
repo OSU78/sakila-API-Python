@@ -1,6 +1,6 @@
 # 🎬 Liste de films
 
-Bienvenue dans ce projet Liste de films! 🎉 Ce projet vise à afficher une liste de films avec leur année de sortie dans un format de tableau triable et paginé. Vous pouvez trier les films par titre ou par année de sortie, et afficher un certain nombre de films par page en fonction de vos préférences. Le projet utilise une API pour récupérer les données des films et les affiche sur une page HTML.
+Bienvenue dans ce projet Sakila - Liste de films! 🎉 Ce projet vise à afficher une liste de films d'une base de donnée externe nommé Sakila avec leur année de sortie dans un format de tableau triable et paginé. Vous pouvez trier les films par titre ou par année de sortie, et afficher un certain nombre de films par page en fonction de vos préférences. Le projet utilise une API pour récupérer les données des films et les affiche sur une page HTML.
 
 ## 🌐 Testez l'application
 
@@ -21,4 +21,4 @@ Voici quelques-unes des fonctionnalités intéressantes de ce projet:
 
 ## 🚀 Lancez-vous!
 
-N'hésitez pas à explorer le code source, à le modifier ou à l'améliorer selon vos besoins. Ce projet est un excellent point de départ pour apprendre à manipuler et afficher des données à partir d'une API connecter à une BDD dans une page web. Amusez-vous bien et bon développement! 💻🤓
+N'hésitez pas à Likez le projet et explorer le code source, à le modifier ou à l'améliorer selon vos besoins. Ce projet(MT4 HETIC) que j'ai réalisé est un excellent point de départ pour apprendre à manipuler et afficher des données à partir d'une API connecter à une BDD dans une page web. Amusez-vous bien et bon développement! 💻🤓
