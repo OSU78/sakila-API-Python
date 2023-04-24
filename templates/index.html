@@ -1,9 +1,308 @@
 <!DOCTYPE html>
 <html>
   <head>
-    <title>Hello World</title>
+    <meta charset="UTF-8" />
+    <title>Liste de films</title>
+    <link
+      rel="stylesheet"
+      href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css"
+    />
   </head>
   <body>
-    <h1>Hello World!</h1>
+    <style>
+      .sort {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        gap: 10px;
+        margin: 0px;
+      }
+      .flex {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        gap: 10px;
+        width: moz-available;
+        width: -webkit-fill-available;
+      }
+      input[type="number"] {
+        position: fixed;
+        max-width: 50px;
+        text-align: center;
+        margin: 5px;
+        border: 1px solid rgb(56, 97, 199);
+        border-radius: 4px;
+        caret-color: rgb(56, 97, 199);
+        bottom: 62px;
+      }
+      .sort p {
+        margin: 0px;
+      }
+      .triangle {
+        content: " ";
+        display: inline-block;
+        width: 15px;
+        height: 12px;
+        clip-path: polygon(50% 0%, 0% 100%, 100% 100%);
+        background-color: rgb(56, 97, 199);
+        transition: 0.3s;
+      }
+      .selected .triangle {
+        transform: rotate(180deg);
+      }
+
+      .sort p {
+        margin: 0px;
+      }
+      .triangle {
+        content: " ";
+        display: inline-block;
+        width: 15px;
+        height: 12px;
+        clip-path: polygon(50% 0%, 0% 100%, 100% 100%);
+        background-color: rgb(56, 97, 199);
+        transition: 0.3s;
+      }
+      .page-item{
+        background-color: white;
+        height: 40px;
+      }
+      .ellipsis{
+        margin: 10px;
+      }
+      .selected .triangle {
+        transform: rotate(180deg);
+      }
+
+      .pagination {
+        position: fixed;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        box-shadow: 1px 2px 4px #08080812;
+        border-radius: 8px;
+       
+        bottom: 1px;
+      }
+    </style>
+    <div class="container">
+      <h1>Liste de films</h1>
+
+      <table class="table">
+        <thead>
+          <tr>
+            <th>
+              <a href="#" class="sort" data-sort-by="title"
+                ><p>Titre</p>
+                <span class="triangle"></span
+              ></a>
+            </th>
+            <th>
+              <a href="#" class="sort" data-sort-by="release_year">
+                <p>Année de sortie</p>
+                <span class="triangle"></span
+              ></a>
+            </th>
+          </tr>
+        </thead>
+        <tbody id="films-table"></tbody>
+      </table>
+
+      <div class="flex center">
+        <input
+          type="number"
+          name=""
+          id="paginationNombre"
+          value="10"
+          min="1"
+          max="500"
+        />
+      </div>
+
+      <nav class="flex center">
+        <ul class="pagination justify-content-center"></ul>
+      </nav>
+    </div>
+
+    <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
+    <script>
+      // Ajouter des événements de clic pour les liens de pagination
+      function swipPage(e) {
+        currentPage = parseInt(e.getAttribute("data-page"));
+        //alert(currentPage);
+        getFilms();
+      }
+
+      // Initialiser les valeurs par défaut
+      var currentPage = 1;
+      var perPage = 10;
+      var sortBy = "title";
+      var sortDir = "asc";
+
+      var filmsTable = document.getElementById("films-table");
+      var pagination = document.querySelector(".pagination");
+
+      document
+        .getElementById("paginationNombre")
+        .addEventListener("change", function () {
+          console.log(this.value);
+          perPage = this.value;
+          this.setAttribute("disabled", true);
+          getFilms();
+        });
+
+      // Fonction pour récupérer les films triés et paginés à partir de l'API
+      function getFilms() {
+        var xhr = new XMLHttpRequest();
+        xhr.onreadystatechange = function () {
+          if (xhr.readyState === XMLHttpRequest.DONE) {
+            if (xhr.status === 200) {
+              var data = JSON.parse(xhr.responseText);
+
+              // Ajouter les films à la table
+              filmsTable.innerHTML = "";
+              data.data.forEach(function (film) {
+                var row = document.createElement("tr");
+                row.innerHTML =
+                  "<td>" +
+                  film.title +
+                  "</td><td>" +
+                  film.release_year +
+                  "</td>";
+                filmsTable.appendChild(row);
+              });
+
+              // Ajouter les liens de pagination
+              pagination.innerHTML = "";
+              var maxPages = 5;
+              var startPage = Math.max(
+                1,
+                currentPage - Math.floor(maxPages / 2)
+              );
+              var endPage = Math.min(
+                data.total_pages,
+                startPage + maxPages - 1
+              );
+              if (endPage - startPage < maxPages - 1) {
+                startPage = Math.max(1, endPage - maxPages + 1);
+              }
+              if (startPage > 1) {
+                var firstPageLink = document.createElement("a");
+                firstPageLink.href = "#";
+                firstPageLink.innerHTML = "1";
+                firstPageLink.setAttribute("data-page", 1);
+                firstPageLink.classList.add("page-link");
+                firstPageLink.setAttribute("onclick", "swipPage(this)");
+                var firstPageItem = document.createElement("li");
+                firstPageItem.classList.add("page-item");
+                firstPageItem.appendChild(firstPageLink);
+                pagination.appendChild(firstPageItem);
+                var ellipsisItem = document.createElement("li");
+                ellipsisItem.classList.add("page-item");
+                ellipsisItem.innerHTML =
+                  '<span class="ellipsis">&hellip;</span>';
+                pagination.appendChild(ellipsisItem);
+              }
+              // Ajouter des événements de clic pour les liens de pagination
+              for (var i = startPage; i <= endPage; i++) {
+                var pageLink = document.createElement("a");
+                pageLink.href = "#";
+                pageLink.innerHTML = i;
+                pageLink.setAttribute("data-page", i);
+                pageLink.classList.add("page-link");
+                pageLink.setAttribute("onclick", "swipPage(this)");
+                if (i === currentPage) {
+                  pageLink.classList.add("active");
+                }
+                var pageItem = document.createElement("li");
+                pageItem.classList.add("page-item");
+                pageItem.appendChild(pageLink);
+                pagination.appendChild(pageItem);
+              }
+              if (endPage < data.total_pages) {
+                var ellipsisItem = document.createElement("li");
+                ellipsisItem.classList.add("page-item");
+                ellipsisItem.innerHTML =
+                  '<span class="ellipsis">&hellip;</span>';
+                pagination.appendChild(ellipsisItem);
+                var lastPageLink = document.createElement("a");
+                lastPageLink.href = "#";
+                lastPageLink.innerHTML = data.total_pages;
+                lastPageLink.setAttribute("data-page", data.total_pages);
+                lastPageLink.setAttribute("onclick", "swipPage(this)");
+                lastPageLink.classList.add("page-link");
+                var lastPageItem = document.createElement("li");
+                lastPageItem.classList.add("page-item");
+                lastPageItem.appendChild(lastPageLink);
+                pagination.appendChild(lastPageItem);
+              }
+              document
+                .getElementById("paginationNombre")
+                .removeAttribute("disabled");
+            }
+          }
+        };
+
+        xhr.open(
+          "GET",
+          "https://sakila-xyf8.onrender.com/films?page=" +
+            currentPage +
+            "&per_page=" +
+            perPage +
+            "&sort_by=" +
+            sortBy +
+            "&sort_dir=" +
+            sortDir,
+          true
+        );
+        xhr.send();
+      }
+
+      // Fonction pour changer le tri des films
+      function sortFilms(sortB, sortDi) {
+        currentPage = 1;
+        sortBy = sortB;
+        sortDir = sortDi;
+        getFilms();
+      }
+
+      // Appeler la fonction pour récupérer les films triés et paginés au chargement de la page
+      getFilms();
+
+      function addCSSRule(sheet, selector, rules, index) {
+        if (sheet.insertRule) {
+          sheet.insertRule(selector + "{" + rules + "}", index);
+        } else if (sheet.addRule) {
+          sheet.addRule(selector, rules, index);
+        }
+      }
+
+      // Ajouter des événements de clic pour les liens de tri
+      var sortLinks = document.querySelectorAll(".sort");
+      sortLinks.forEach(function (sortLink) {
+        sortLink.addEventListener("click", function () {
+        
+          var sortBy = this.getAttribute("data-sort-by");
+            console.log(this.classList);
+         
+            if(this.classList.contains("selected")){
+              this.classList.remove("selected");
+            }else{
+          // Ajoutez la classe "selected" à l'élément cliqué
+          this.classList.add("selected");
+            }
+
+          if (sortDir == "asc") {
+            sortDir = "desc";
+          } else {
+            sortDir = "asc";
+          }
+          //alert(sortDir);
+          sortFilms(sortBy, sortDir);
+        });
+      });
+    </script>
   </body>
 </html>
