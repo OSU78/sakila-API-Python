@@ -8,9 +8,8 @@
       href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css"
     />
   </head>
-  <link rel="stylesheet" href="style.css">
+  <link rel="stylesheet" href="style.css" />
   <body>
-   
     <div class="container">
       <h1>Liste de films 🎬</h1>
 
@@ -18,16 +17,34 @@
         <thead>
           <tr>
             <th>
-              <a href="#" class="sort" data-sort-by="title"
-                ><p class="orange">Titre</p>
-                <span class="triangle"></span
-              ></a>
+              <a href="#" class="sort" data-sort-by="title">
+                <p class="orange">Nom du film</p>
+                <span class="triangle"></span>
+              </a>
             </th>
             <th>
-              <a href="#" class="sort" data-sort-by="release_year">
-                <p class="orange">Année de sortie</p>
-                <span class="triangle"></span
-              ></a>
+              <a href="#" class="sort" data-sort-by="rental_rate">
+                <p class="orange">Prix de location</p>
+                <span class="triangle"></span>
+              </a>
+            </th>
+            <th>
+              <a href="#" class="sort" data-sort-by="rating">
+                <p class="orange">Classification</p>
+                <span class="triangle"></span>
+              </a>
+            </th>
+            <th>
+              <a href="#" class="sort" data-sort-by="category_name">
+                <p class="orange">Genre du film</p>
+                <span class="triangle"></span>
+              </a>
+            </th>
+            <th>
+              <a href="#" class="sort" data-sort-by="rental_count">
+                <p class="orange">Nombre de fois loué</p>
+                <span class="triangle"></span>
+              </a>
             </th>
           </tr>
         </thead>
@@ -53,11 +70,10 @@
       <div class="popup" id="popup">
         <h2>Bienvenue sur Sakila Project 🎬</h2>
         <p class="secondaryP">
-          Tu peux découvrir une liste de films accompagnée
-          de leur année de sortie dans un format de tableau facilement 
-          triable et paginé 🌐. Tu as la possibilité de trier les films
-          par titre ou par année de sortie, et même de choisir le nombre de films
-          affichés par page afin de naviguer facilement entre les différentes pages. 🧩
+          Explorez une liste de films avec leur année de sortie dans un format
+          de tableau triable et paginé. 🌐 Triez les films par titre ou par
+          année de sortie, affichez un certain nombre de films par page et
+          naviguez facilement entre les pages. 🧩
         </p>
         <h3>🛠️ Technologies utilisées</h3>
         <ul>
@@ -84,7 +100,7 @@
       </div>
     </div>
     <div class="github-bar">
-      <a href="https://github.com/OSU78/sakila-API-Python" target="_blank" class="github-link">
+      <a href="https://github.com/" target="_blank" class="github-link">
         <span>Voir sur mon GitHub</span>
       </a>
     </div>
@@ -93,7 +109,5 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
     <script src="script.js"></script>
-
-   
   </body>
 </html>
