@@ -150,7 +150,7 @@
      currentPage = currentPage;
      sortBy = sortB;
      sortDir = sortDi;
-     getFilms();
+     getFilms(currentPage);
  }
 
  // Appeler la fonction pour récupérer les films triés et paginés au chargement de la page
