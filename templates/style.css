@@ -109,6 +109,7 @@
   .ellipsis,
   input {
     color: #ff5722;
+      width: max-content;
   }
   #visit-btn {
     text-transform: uppercase;
