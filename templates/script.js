@@ -61,6 +61,7 @@
                      data.total_pages,
                      startPage + maxPages - 1
                  );
+                 endPage = endPage-3
                  if (endPage - startPage < maxPages - 1) {
                      startPage = Math.max(1, endPage - maxPages + 1);
                  }
