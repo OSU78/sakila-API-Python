@@ -17,14 +17,19 @@ def after_request(response):
 
 # Configuration de la base de données
 
-mydb = mysql.connector.connect(
-  host="unixshell.hetic.glassworks.tech",
-  port=27116,
-  user="student",
-  password="Tk0Uc2o2mwqcnIA",
-  database="sakila"
-)
-cursor = mydb.cursor()
+def get_db_cursor():
+    try:
+        mydb = mysql.connector.connect(
+            host="unixshell.hetic.glassworks.tech",
+            port=27116,
+            user="student",
+            password="Tk0Uc2o2mwqcnIA",
+            database="sakila"
+        )
+        return mydb.cursor()
+    except mysql.connector.Error as err:
+        print("Erreur de connexion à la base de données : {}".format(err))
+        return None
 
 # Endpoint pour récupérer les films triés et paginés
 @app.route('/films')
@@ -37,27 +42,43 @@ def get_films():
     offset = (page - 1) * per_page
 
     # Construire la requête SQL pour récupérer les films triés et paginés
-    query = f"SELECT title, release_year FROM film ORDER BY {sort_by} {sort_dir} LIMIT {offset}, {per_page};"
-    cursor.execute(query)
-    output = []
-    for (title, release_year) in cursor:
-        output.append({'title': title, 'release_year': release_year})
+    cursor = get_db_cursor()
+    if cursor is None:
+        response = {
+            'message': 'Erreur lors de la récupération des films'
+        }
+        return jsonify(response), 500  # 500 est le code d'erreur pour une erreur interne du serveur
 
-    # Récupérer le nombre total de films pour construire les liens de pagination
-    query = "SELECT COUNT(*) FROM film"
-    cursor.execute(query)
-    total_films = cursor.fetchone()[0]
-    total_pages = (total_films // per_page) + (1 if total_films % per_page != 0 else 0)
+    try:
+        query = f"SELECT title, release_year FROM film ORDER BY {sort_by} {sort_dir} LIMIT {offset}, {per_page};"
+        cursor.execute(query)
+        output = []
+        for (title, release_year) in cursor:
+            output.append({'title': title, 'release_year': release_year})
 
-    # Construire la réponse JSON avec les données triées et paginées
-    response = {
-        'data': output,
-        'total_films': total_films,
-        'total_pages': total_pages,
-        'current_page': page,
-        'per_page': per_page,
-        'sort_by': sort_by,
-        'sort_dir': sort_dir
-    }
-    return jsonify(response)
+        # Récupérer le nombre total de films pour construire les liens de pagination
+        query = "SELECT COUNT(*) FROM film"
+        cursor.execute(query)
+        total_films = cursor.fetchone()[0]
+        total_pages = (total_films // per_page) + (1 if total_films % per_page != 0 else 0)
+
+        # Construire la réponse JSON avec les données triées et paginées
+        response = {
+            'data': output,
+            'total_films': total_films,
+            'total_pages': total_pages,
+            'current_page': page,
+            'per_page': per_page,
+            'sort_by': sort_by,
+            'sort_dir': sort_dir
+        }
+        return jsonify(response)
+    except mysql.connector.Error as err:
+        print("Erreur lors de l'exécution de la requête SQL : {}".format(err))
+        cursor.close()
+        cursor = None
+        return get_films() # appel récursif pour retenter la connexion à la base de données
+    finally:
+        if cursor is not None:
+            cursor.close()
 
