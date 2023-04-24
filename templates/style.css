@@ -281,3 +281,8 @@
     max-width: 920px;
 }
 }
+@media (min-width: 576px){
+.container {
+    max-width: 940px;
+}
+}
