@@ -42,11 +42,30 @@ def get_films():
     offset = (page - 1) * per_page
 
     # Construire la requête SQL pour récupérer les films triés et paginés
-    query = f"SELECT title, release_year FROM film ORDER BY {sort_by} {sort_dir} LIMIT {offset}, {per_page};"
+    query = f"""
+        SELECT film.title AS title,
+            film.rental_rate AS rental_rate,
+            film.rating AS rating,
+            category.name AS category_name,
+            COUNT(rental.rental_id) AS rental_count
+        FROM film
+        INNER JOIN film_category ON film.film_id = film_category.film_id
+        INNER JOIN category ON film_category.category_id = category.category_id
+        INNER JOIN inventory ON film.film_id = inventory.film_id
+        INNER JOIN rental ON inventory.inventory_id = rental.inventory_id
+        GROUP BY film.film_id, category.name
+        ORDER BY {sort_by} {sort_dir}
+        LIMIT {offset}, {per_page}"""
     cursor.execute(query)
     output = []
-    for (title, release_year) in cursor:
-        output.append({'title': title, 'release_year': release_year})
+    for (title, rental_rate, rating, category_name, rental_count) in cursor:
+        output.append({
+            'title': title,
+            'rental_rate': rental_rate,
+            'rating': rating,
+            'category_name': category_name,
+            'rental_count': rental_count
+        })
 
     # Récupérer le nombre total de films pour construire les liens de pagination
     query = "SELECT COUNT(*) FROM film"
