@@ -81,6 +81,8 @@ def get_films():
         'current_page': page,
         'per_page': per_page,
         'sort_by': sort_by,
-        'sort_dir': sort_dir
+        'sort_dir': sort_dir,
+        'offset' : offset,
+        
     }
     return jsonify(response)
