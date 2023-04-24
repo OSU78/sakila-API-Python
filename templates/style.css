@@ -232,7 +232,7 @@
 
   .github-link {
     transition: 0.23s;
-    color: white;
+    color: #666666;
     text-decoration: none;
     font-size: 14px;
     display: flex;
