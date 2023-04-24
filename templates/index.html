@@ -2,7 +2,7 @@
 <html>
   <head>
     <meta charset="UTF-8" />
-    <title>Liste de films  🎬 - Ousmane</title>
+    <title>Liste de films 🎬 - Ousmane</title>
     <link
       rel="stylesheet"
       href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css"
@@ -63,11 +63,11 @@
         background-color: #ff5722;
         transition: 0.3s;
       }
-      .page-item{
+      .page-item {
         background-color: white;
         height: 40px;
       }
-      .ellipsis{
+      .ellipsis {
         margin: 10px;
       }
       .selected .triangle {
@@ -81,32 +81,101 @@
         justify-content: center;
         box-shadow: 1px 2px 4px #08080812;
         border-radius: 8px;
-       
+
         bottom: 1px;
       }
-      h1{
-     background-image: linear-gradient(to bottom, #ff5722, #ff6d35, #ff7f48, #ff915c, #ffa170);
-    font-size: 2.5rem;
-     padding: 10px;
-    background-clip: text;
-    -webkit-background-clip: text;
-    color: transparent;
+      h1 {
+        background-image: linear-gradient(
+          to bottom,
+          #ff5722,
+          #ff6d35,
+          #ff7f48,
+          #ff915c,
+          #ffa170
+        );
+        font-size: 2.5rem;
+        padding: 10px;
+        background-clip: text;
+        -webkit-background-clip: text;
+        color: transparent;
       }
-.page-link, .orange,.ellipsis,input{
-  color:#ff5722
-  
+      .page-link,
+      .orange,
+      .ellipsis,
+      input {
+        color: #ff5722;
       }
-  
+
+      /* Styles pour la pop-up */
+      .popup-bg {
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background-color: rgba(0, 0, 0, 0.5);
+        backdrop-filter: blur(5px);
+        display: flex;
+        justify-content: center;
+        align-items: center;
+      }
+
+      .popup {
+        width: 80%;
+        max-width: 500px;
+        background-color: white;
+        padding: 30px;
+        border-radius: 10px;
+        text-align: center;
+        box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+      }
+
+      /* Style pour les éléments ul */
+      ul {
+        list-style-type: none;
+        padding: 0;
+        margin: 0;
+      }
+
+      /* Style pour les éléments li */
+      li {
+        padding: 5px 0;
+        font-size: 16px;
+        line-height: 1.5;
+        color: #333;
+      }
+
+      /* Style pour les éléments h4 */
+      h4 {
+        margin-bottom: 5px;
+        font-size: 18px;
+        color: #555;
+      }
+
+      /* Style pour les éléments li imbriqués */
+      ul li ul li {
+        padding-left: 20px;
+        position: relative;
+      }
+
+      /* Ajout d'un emoji devant les éléments li imbriqués */
+      ul li ul li:before {
+        content: "🔸";
+        position: absolute;
+        left: 0;
+        transform: translateX(-100%);
+        color: #f1c40f;
+      }
     </style>
     <div class="container">
-      <h1>Liste de films  🎬</h1>
+      <h1>Liste de films 🎬</h1>
 
       <table class="table">
         <thead>
           <tr>
             <th>
               <a href="#" class="sort" data-sort-by="title"
-                ><p class="orange" >Titre</p>
+                ><p class="orange">Titre</p>
                 <span class="triangle"></span
               ></a>
             </th>
@@ -135,6 +204,37 @@
       <nav class="flex center">
         <ul class="pagination justify-content-center"></ul>
       </nav>
+    </div>
+    <div class="popup-bg" id="popup-bg">
+      <div class="popup" id="popup">
+        <h2>🎬 Bienvenue sur Sakila Project 🎬</h2>
+        <p>
+          Explorez une liste de films avec leur année de sortie dans un format
+          de tableau triable et paginé. 🌐 Triez les films par titre ou par
+          année de sortie, affichez un certain nombre de films par page et
+          naviguez facilement entre les pages. 🧩
+        </p>
+        <h3>🛠️ Technologies utilisées :</h3>
+        <ul>
+          <li>
+            <h4>Backend :</h4>
+            <ul>
+              <li>🐍 Python</li>
+              <li>🌐 Flask App</li>
+            </ul>
+          </li>
+          <li>
+            <h4>Frontend :</h4>
+            <ul>
+              <li>📄 HTML</li>
+              <li>🎨 CSS</li>
+              <li>🔧 JavaScript</li>
+              <li>🥾 Bootstrap</li>
+            </ul>
+          </li>
+        </ul>
+        <button class="btn btn-primary" id="visit-btn">Visiter 🚀</button>
+      </div>
     </div>
 
     <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js"></script>
@@ -296,16 +396,15 @@
       var sortLinks = document.querySelectorAll(".sort");
       sortLinks.forEach(function (sortLink) {
         sortLink.addEventListener("click", function () {
-        
           var sortBy = this.getAttribute("data-sort-by");
-            console.log(this.classList);
-         
-            if(this.classList.contains("selected")){
-              this.classList.remove("selected");
-            }else{
-          // Ajoutez la classe "selected" à l'élément cliqué
-          this.classList.add("selected");
-            }
+          console.log(this.classList);
+
+          if (this.classList.contains("selected")) {
+            this.classList.remove("selected");
+          } else {
+            // Ajoutez la classe "selected" à l'élément cliqué
+            this.classList.add("selected");
+          }
 
           if (sortDir == "asc") {
             sortDir = "desc";
@@ -316,6 +415,15 @@
           sortFilms(sortBy, sortDir);
         });
       });
+    </script>
+
+    <script>
+      //code JavaScript pour gérer le bouton de visite et la fermeture de la pop-up
+      document
+        .getElementById("visit-btn")
+        .addEventListener("click", function () {
+          document.getElementById("popup-bg").style.display = "none";
+        });
     </script>
   </body>
 </html>
