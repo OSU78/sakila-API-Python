@@ -285,14 +285,6 @@ width: -webkit-fill-available;
     margin-bottom: 10rem;
 }
 
-li.page-item:nth-child(4) {
-    background: #F44336;
-}
-
-.page-link:nth-child(4){
-    color:#f44336;
-    background: linear-gradient(183deg, rgb(248 203 188) 0%, rgb(255 255 255) 80%);
-}
 
 
 
